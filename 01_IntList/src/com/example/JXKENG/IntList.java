@@ -67,7 +67,7 @@ public class IntList {
             x = x.rest;
             i--;
         }
-        
+
         return x.first;
 
     }
