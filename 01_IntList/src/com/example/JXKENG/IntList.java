@@ -14,9 +14,17 @@ public class IntList {
         L = new IntList(10, L);
         L = new IntList(5, L);
 
-        L.iterativeSize();
-        L.size();
 
+        System.out.println( L.iterativeSize() );
+        System.out.println( L.size() );
+
+        System.out.println( L.get(0) );
+        System.out.println( L.get(1) );
+        System.out.println( L.get(2) );
+
+        System.out.println( L.iterativeGet(0) );
+        System.out.println( L.iterativeGet(1) );
+        System.out.println( L.iterativeGet(2) );
     }
 
 
@@ -43,6 +51,27 @@ public class IntList {
 
         return count;
     }
+
+    public int get(int i) {
+        if (i == 0) {
+            return first;
+        }
+
+        return rest.get(i - 1);
+    }
+
+    public int iterativeGet(int i) {
+        IntList x = this;
+
+        while (i != 0) {
+            x = x.rest;
+            i--;
+        }
+        
+        return x.first;
+
+    }
+
 
 }
 
