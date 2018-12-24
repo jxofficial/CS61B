@@ -3,64 +3,73 @@ package com.example.JXKENG;
 public class SLList {
 
     private static class IntNode {
-        public int item;
-        public IntNode next;
+        private int item;
+        private IntNode next;
 
-        public IntNode(int item, IntNode next) {
-            this.item = item;
-            this.next = next;
+        private IntNode(int i, IntNode n) {
+            item = i;
+            next = n;
         }
     }
 
-    private IntNode firstNode;
-    private IntNode lastNode;
+
+    // first item, if it exists, is at sentinel.next
+    private IntNode sentinel;
     private int size;
 
+    public SLList() {
+        size = 0;
+        sentinel = new IntNode(0, null);
+    }
 
     public SLList(int x) {
-        this.firstNode = new IntNode(x, null);
+        sentinel = new IntNode(0, null);
+        sentinel.next = new IntNode(x, null);
         this.size = 1;
     }
 
-    public SLList() {
-        this.firstNode = null;
-        this.size = 0;
+    public IntNode getSentinel() {
+        return sentinel.next;
     }
 
     public void addToFront(int x) {
-        firstNode = new IntNode(x, firstNode);
+        sentinel.next = new IntNode(x, sentinel.next);
+
         size++;
     }
 
-    public int getFirstNode() {
-        return firstNode.item;
-    }
+    public void addToBack(int x) {
+        IntNode p = sentinel;
 
-    public void addLast(int x) {
-        if (this.size == 0) {
-            this.firstNode = new IntNode(x, null);
-            size++;
-        } else {
-            this.lastNode.next = new IntNode(x, null);
-            this.lastNode = lastNode.next;
-            size++;
+        while (p.next != null) {
+            p = p.next;
         }
+
+        p.next = new IntNode(x, null);
+        size++;
     }
 
-    // returns the size of the list that starts at IntNode n
-    private static int size(IntNode n) {
-        if (n.next == null) {
+    public IntNode recursiveAddToBack(int x, IntNode p) {
+        if (p.next == null) {
+            p.next = new IntNode(x, null);
+            return null;
+        }
+
+        return recursiveAddToBack(x, p.next);
+    }
+
+    private int recursiveSize(IntNode p) {
+        if (p.next == null) {
             return 1;
         }
+        return 1 + recursiveSize(p.next);
+    }
 
-        return 1 + size(n.next);
+    public int recursiveSize() {
+        return recursiveSize(sentinel);
     }
 
     public int size() {
-        return size(firstNode);
-    }
-
-    public int instantSize() {
         return size;
     }
 

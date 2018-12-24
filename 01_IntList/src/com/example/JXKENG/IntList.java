@@ -13,6 +13,7 @@ public class IntList {
         IntList L = new IntList(15, null);
         L = new IntList(10, L);
         L = new IntList(5, L);
+        L.addFirst(1);
 
 
         System.out.println( L.iterativeSize() );
@@ -69,6 +70,13 @@ public class IntList {
         }
 
         return x.first;
+    }
+
+    public void addFirst(int x) {
+        IntList currentList = new IntList(first, rest);
+        IntList updatedList = new IntList(x, currentList);
+        this.first = x;
+        this.rest = currentList;
 
     }
 
